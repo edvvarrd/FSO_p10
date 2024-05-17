@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import Text from './Text';
+import Text from '../Text';
 import { Link } from 'react-router-native';
 
 const styles = StyleSheet.create({
@@ -9,9 +9,9 @@ const styles = StyleSheet.create({
 	},
 });
 
-const AppBarTab = ({ children, to }) => {
+const AppBarTab = ({ children, to, onPress }) => {
 	return (
-		<Link to={to} style={styles.tab} underlayColor="transparent">
+		<Link to={to} style={styles.tab} onPress={onPress} underlayColor="transparent">
 			<Text color="white" fontWeight="bold">
 				{children}
 			</Text>
