@@ -41,14 +41,19 @@ const styles = StyleSheet.create({
 const initialValues = {
 	username: '',
 	password: '',
+	confirmPassword: '',
 };
 
 const validationSchema = yup.object().shape({
-	username: yup.string().required('Username is required'),
-	password: yup.string().required('Password is required'),
+	username: yup.string().required('Username is required').min(5).max(30),
+	password: yup.string().required('Password is required').min(5).max(50),
+	confirmPassword: yup
+		.string()
+		.required('Password confirmation is required')
+		.oneOf([yup.ref('password')], "Passwords don't match"),
 });
 
-const SignInForm = ({ onSubmit }) => {
+const SignUpForm = ({ onSubmit }) => {
 	const formik = useFormik({
 		initialValues,
 		validationSchema,
@@ -75,11 +80,23 @@ const SignInForm = ({ onSubmit }) => {
 				/>
 				{formik.touched.password && formik.errors.password && <Text style={styles.errorText}>{formik.errors.password}</Text>}
 			</View>
+			<View style={styles.inputContainer}>
+				<TextInput
+					placeholder="Confirm password"
+					value={formik.values.confirmPassword}
+					onChangeText={formik.handleChange('confirmPassword')}
+					secureTextEntry={true}
+					style={[styles.input, formik.touched.confirmPassword && formik.errors.confirmPassword && styles.errorInput]}
+				/>
+				{formik.touched.confirmPassword && formik.errors.confirmPassword && (
+					<Text style={styles.errorText}>{formik.errors.confirmPassword}</Text>
+				)}
+			</View>
 			<Pressable onPress={formik.handleSubmit} style={styles.button}>
-				<Text style={styles.buttonText}>Log in</Text>
+				<Text style={styles.buttonText}>Sign Up</Text>
 			</Pressable>
 		</View>
 	);
 };
 
-export default SignInForm;
+export default SignUpForm;

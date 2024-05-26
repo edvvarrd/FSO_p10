@@ -1,9 +1,9 @@
 import { useQuery } from '@apollo/client';
 import { ME } from '../graphql/queries';
 
-const useLoggedIn = () => {
-	const result = useQuery(ME);
-	return result;
+const useLoggedIn = includeReviews => {
+	const { data } = useQuery(ME, { variables: { includeReviews: includeReviews ? true : false } });
+	return data;
 };
 
 export default useLoggedIn;

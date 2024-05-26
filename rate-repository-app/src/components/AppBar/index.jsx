@@ -21,7 +21,18 @@ const AppBar = () => {
 		<View style={styles.container}>
 			<ScrollView horizontal alwaysBounceHorizontal={false} showsHorizontalScrollIndicator={false}>
 				<AppBarTab to="/">Repositories</AppBarTab>
-				{loggedIn.data?.me ? <AppBarTab onPress={logout}>Log out</AppBarTab> : <AppBarTab to="/signin">Sign In</AppBarTab>}
+				{loggedIn?.me ? (
+					<>
+						<AppBarTab to="/createreview">Create a review</AppBarTab>
+						<AppBarTab to="/myreviews">My reviews</AppBarTab>
+						<AppBarTab onPress={logout}>Log out</AppBarTab>
+					</>
+				) : (
+					<>
+						<AppBarTab to="/signin">Sign In</AppBarTab>
+						<AppBarTab to="/signup">Sign up</AppBarTab>
+					</>
+				)}
 			</ScrollView>
 		</View>
 	);

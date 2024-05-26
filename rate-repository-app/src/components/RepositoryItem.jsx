@@ -1,5 +1,6 @@
-import { Text, View, Image, StyleSheet } from 'react-native';
-import theme from '../../theme';
+import { Text, View, Image, StyleSheet, Pressable } from 'react-native';
+import { openURL } from 'expo-linking';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
 	container: {
@@ -50,11 +51,21 @@ const styles = StyleSheet.create({
 	statisticText: {
 		color: theme.colors.textSecondary,
 	},
+	button: {
+		paddingVertical: 12.5,
+		paddingHorizontal: 5,
+		alignItems: 'center',
+		backgroundColor: theme.colors.primary,
+	},
+	buttonText: {
+		color: theme.colors.white,
+		fontWeight: theme.fontWeights.bold,
+	},
 });
 
-const RepositoryItem = ({ repository }) => {
+const RepositoryItem = ({ repository, link }) => {
 	return (
-		<View style={styles.container}>
+		<View style={styles.container} testID="repositoryItem">
 			<View style={styles.top}>
 				<Image style={styles.avatar} source={{ uri: repository.ownerAvatarUrl }} />
 				<View style={styles.details}>
@@ -91,6 +102,11 @@ const RepositoryItem = ({ repository }) => {
 					<Text style={styles.statisticText}>Rating</Text>
 				</View>
 			</View>
+			{link && (
+				<Pressable style={styles.button} onPress={() => openURL(repository.url)}>
+					<Text style={styles.buttonText}>Open in GitHub</Text>
+				</Pressable>
+			)}
 		</View>
 	);
 };

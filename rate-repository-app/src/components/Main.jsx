@@ -6,6 +6,10 @@ import theme from '../theme';
 import RepositoryList from './RepositoryList';
 import AppBar from './AppBar';
 import SignIn from './SignIn';
+import SignUp from './SignUp';
+import RepositorySingle from './RepositorySingle';
+import CreateReview from './CreateReview';
+import MyReviews from './MyReviews';
 
 const styles = StyleSheet.create({
 	container: {
@@ -23,6 +27,10 @@ const Main = () => {
 			<Routes>
 				<Route path="/" element={<RepositoryList />} />
 				<Route path="/signin" element={<SignIn />} />
+				<Route path="/signup" element={<SignUp />} />
+				<Route path="/repository/:id" element={<RepositorySingle />} />
+				<Route path="/myreviews" element={<MyReviews />} />
+				<Route path="/createreview" element={<CreateReview />} />
 				<Route path="*" element={<Navigate to="/" replace />} />
 			</Routes>
 		</View>
